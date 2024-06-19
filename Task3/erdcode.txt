@@ -1,0 +1,80 @@
+Table Manufacturer {
+    ManufacturerID int [primary key]
+    Name varchar(100) [not null]
+}
+
+Table Animal {
+    AnimalID int [primary key]
+    AnimalType varchar(50) [not null]
+}
+
+Table Product {
+    ProductID int [primary key]
+    Name varchar(100) [not null]
+    ManufacturerID int [ref: > Manufacturer.ManufacturerID]
+}
+
+Table PetFood {
+    ProductID int [primary key, ref: > Product.ProductID]
+    Weight decimal(10, 2) [not null]
+    Flavor varchar(50) [not null]
+    TargetHealthCondition varchar(100) [not null]
+}
+
+Table PetToy {
+    ProductID int [primary key, ref: > Product.ProductID]
+    Material varchar(50) [not null]
+    Durability varchar(50) [not null]
+}
+
+Table PetApparel {
+    ProductID int [primary key, ref: > Product.ProductID]
+    Color varchar(50) [not null]
+    Size varchar(50) [not null]
+    CareInstructions text [not null]
+}
+
+Table ProductAnimal {
+    ProductID int [ref: > Product.ProductID]
+    AnimalID int [ref: > Animal.AnimalID]
+    primary key (ProductID, AnimalID)
+}
+
+Table Customer {
+    CustomerID int [primary key]
+    Name varchar(100) [not null]
+    Email varchar(100) [not null, unique]
+}
+
+Table Transaction {
+    TransactionID int [primary key]
+    CustomerID int [ref: > Customer.CustomerID]
+    TransactionDate date [not null]
+}
+
+Table TransactionProduct {
+    TransactionID int [ref: > Transaction.TransactionID]
+    ProductID int [ref: > Product.ProductID]
+    Quantity int [not null]
+    primary key (TransactionID, ProductID)
+}
+
+Table Location {
+    LocationID int [primary key]
+    Name varchar(100) [not null]
+    ZipCode varchar(10) [not null]
+}
+
+Table Shipment {
+    ShipmentID int [primary key]
+    OriginLocationID int [ref: > Location.LocationID]
+    DestinationLocationID int [ref: > Location.LocationID]
+    ShipmentDate date [not null]
+}
+
+Table ShipmentProduct {
+    ShipmentID int [ref: > Shipment.ShipmentID]
+    ProductID int [ref: > Product.ProductID]
+    Quantity int [not null]
+    primary key (ShipmentID, ProductID)
+}
