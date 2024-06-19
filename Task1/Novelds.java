@@ -72,14 +72,14 @@ public class Novelds {
     }
 
     public static void main(String[] args) {
-        // Novelds heap = new Novelds(1); // 2 children per node
-        // heap.insert(10);
-        // heap.insert(20);
+        // Novelds heap = new Novelds(1); 
         // heap.insert(5);
-        // heap.insert(7);
-        // heap.insert(25);
+        // heap.insert(4);
+        // heap.insert(3);
+        // heap.insert(2);
+        // heap.insert(1);
 
-        // System.out.println(heap.popMax()); // Output: 25
-        // System.out.println(heap.popMax()); // Output: 20
+        // System.out.println(heap.popMax()); 
+        // System.out.println(heap.popMax()); 
     }
 }
