@@ -1,0 +1,79 @@
+#PlantUML code
+
+@startuml
+skinparam classAttributeIconSize 0
+
+enum ModeIdentifier {
+  DUMP
+  PASSTHROUGH
+  VALIDATE
+}
+
+enum DatabaseIdentifier {
+  POSTGRES
+  REDIS
+  ELASTIC
+}
+
+class DataPoint {
+}
+
+abstract class Processor {
+  - ModeIdentifier currentMode
+  - Database currentDatabase
+  + void configure(ModeIdentifier mode, DatabaseIdentifier database)
+  + void process(DataPoint data)
+}
+
+interface Mode {
+  + void process(DataPoint data, Database database)
+}
+
+class DumpMode implements Mode {
+  + void process(DataPoint data, Database database)
+}
+
+class PassthroughMode implements Mode {
+  + void process(DataPoint data, Database database)
+}
+
+class ValidateMode implements Mode {
+  + void process(DataPoint data, Database database)
+}
+
+interface Database {
+  + void connect()
+  + void insert(DataPoint data)
+  + void validate(DataPoint data)
+}
+
+class PostgresDatabase implements Database {
+  + void connect()
+  + void insert(DataPoint data)
+  + void validate(DataPoint data)
+}
+
+class RedisDatabase implements Database {
+  + void connect()
+  + void insert(DataPoint data)
+  + void validate(DataPoint data)
+}
+
+class ElasticDatabase implements Database {
+  + void connect()
+  + void insert(DataPoint data)
+  + void validate(DataPoint data)
+}
+
+Processor --> Mode : uses >
+Processor --> Database : uses >
+
+Mode <|-- DumpMode
+Mode <|-- PassthroughMode
+Mode <|-- ValidateMode
+
+Database <|-- PostgresDatabase
+Database <|-- RedisDatabase
+Database <|-- ElasticDatabase
+
+@enduml
